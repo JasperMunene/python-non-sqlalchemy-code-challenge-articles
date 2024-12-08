@@ -39,27 +39,23 @@ class Author:
     all = []
 
     def __init__(self, name):
-        self.name = name
+        if not isinstance(name, str) or len(name) == 0:
+            raise ValueError("Author name must be a non-empty string.")
+        self._name = name
         Author.all.append(self)
         self.author_articles = []
 
-        @property
-        def name(self):
-            return self._name
+    @property
+    def name(self):
+        return self._name
 
-        @name.setter
-        def name(self, name):
-            if name != self.name:
-                return self.name
-            else:
-                if type(name) == str and len(name) > 0:
-                    self.name = name
-            # is_valid_name = lambda name: isinstance(name, str) and  len(name) > 0
-            #
-            # if name != self.name and is_valid_name(name):
-            #     self.name= name
-            # else:
-            #     return self.name
+    @name.setter
+    def name(self, value):
+        if not isinstance(value, str) or len(value) == 0:
+            return
+        if self._name != value:
+            return
+
 
 
     def articles(self):
